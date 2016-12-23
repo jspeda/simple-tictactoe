@@ -1,27 +1,22 @@
 $(document).ready(function() {
 
-  var ticTac = function() {
-    this.gameArray = [0,0,0,0,0,0,0,0,0];
-    this.gameLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
-    for (var i = 0; i < this.gameArray.length; i++) {
-      for (var j = 0; j < this.gameArray[i].length; j++) {
-        console.log(this.gameArray[i][j]);
-      }
-      console.log("\n");
-    }
-  };
+  GameBoard = {
+    this.gameArray: [0,0,0,0,0,0,0,0,0],
+    this.gameLabels: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
 
-  ticTac.prototype.fillSquare = function() {
-    $('.square').click(function() {
-      if ((this).html() === "") (this).html("X");
-    });
+    makeBoard: function() {
+
+    },
+
+    fillSquare: function() {
+      $('.square').click(function() {
+        if((this).html() === "") (this).html("X");
+      });
+    },
+
+    computerFill: function() {
+
+    },
   }
-
-  ticTac.prototype.computerFill = function() {
-
-  }
-
-
-ticTac();
 
 });
