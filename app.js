@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+  $('.modal').show();
+
+  $('.modal').click(function() {
+    $('.modal').hide();
+  });
+
   var GameBoard = {
     init: function() {
       this.gameArray = [0,0,0,0,0,0,0,0,0];
@@ -26,6 +32,9 @@ $(document).ready(function() {
     // write a function to have the computer choose its square.
     // if (something)
 
+    // choose a random number between 0 and 9
+    var chosenCell = Math.floor(Math.random() * 10);
+    console.log("computer chooses index: " + chosenCell);
     // call Game.fillSquare() within this function when the optimal
     // move is found.
   };
@@ -35,8 +44,8 @@ $(document).ready(function() {
     // every time fillSquare is called. If there is a winner or a tie,
     // declare the result and initialize a new board.
 
-    // not currently working
     console.log("checking if done... " + this.gameArray);
+    // function to check if each index of the game array is 1
     function isDone(cell) {
       return cell === 1;
     };
@@ -53,6 +62,7 @@ $(document).ready(function() {
     var that = $(this);
     Game.fillSquare(that);
     Game.checkIfDone();
+    Game.computerMove();
   });
 
 
