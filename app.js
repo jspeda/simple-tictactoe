@@ -24,17 +24,25 @@ $(document).ready(function() {
     };
   };
 
-  Game.computerFill = function() {
+  Game.computerMove = function() {
     // write a function to have the computer choose its square.
+    // if (something)
+
+    // call Game.fillSquare() within this function when the optimal
+    // move is found.
   };
 
-  // write a function to check winning combinations every turn
+  Game.checkForVictory = function() {
+    // write a function to check winning combinations every turn /
+    // every time fillSquare is called. If there is a winner or a tie,
+    // declare the result and initialize a new board.
+  }
 
-$('.cell').click(function() {
-  var that = $(this);
-  Game.fillSquare(that);
-  // console.log(that.attr('id'));
-});
+
+  $('.cell').click(function() {
+    var that = $(this);
+    Game.fillSquare(that);
+  });
 
 
 });
