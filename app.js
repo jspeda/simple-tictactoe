@@ -15,8 +15,8 @@ $(document).ready(function() {
     if(item.html() === "") {
       item.html("X");
       var currentSpot = this.gameLabels.indexOf(item.attr('id'));
-      console.log(currentSpot);
-      console.log(item.attr('id'));
+      console.log("current spot: " + currentSpot +
+      " cell ID: " + item.attr('id'));
       this.gameArray[currentSpot] = 1;
       console.log(this.gameArray);
     };
@@ -37,8 +37,10 @@ $(document).ready(function() {
 
     // not currently working
     console.log("checking if done... " + this.gameArray);
-
-    if (this.gameArray === [1,1,1,1,1,1,1,1,1]) {
+    function isDone(cell) {
+      return cell === 1;
+    };
+    if (this.gameArray.every(isDone)) {
       console.log("game over!");
       Game.init();
       $('.cell').empty();
@@ -48,9 +50,9 @@ $(document).ready(function() {
   Game.init();
 
   $('.cell').click(function() {
-    Game.checkIfDone();
     var that = $(this);
     Game.fillSquare(that);
+    Game.checkIfDone();
   });
 
 
