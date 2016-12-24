@@ -1,0 +1,43 @@
+body {
+  background: #ffd8e7;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.titlecard {
+  font-size: 2em;
+  padding: 2%;
+}
+
+.gameboard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  height: 550px;
+  width: 550px;
+
+}
+
+.row1, .row2, .row3 {
+  display: flex;
+  flex: 1;
+}
+
+.cell {
+  flex: 1;
+  border: 1px solid white;
+  background: #a8dfff;
+}
+
+.cell:hover {
+  background: rgba(0,0,0,0.2);
+}
+
+.footer {
+  padding: 2%;
+}
