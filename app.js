@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  GameBoard = {
+  var GameBoard = {
     init: function() {
       this.gameArray = [0,0,0,0,0,0,0,0,0];
       this.gameLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
