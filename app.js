@@ -11,8 +11,6 @@ $(document).ready(function() {
 
   Game = Object.create(GameBoard);
 
-  Game.init();
-
   Game.fillSquare = function(item) {
     if(item.html() === "") {
       item.html("X");
@@ -32,14 +30,25 @@ $(document).ready(function() {
     // move is found.
   };
 
-  Game.checkForVictory = function() {
+  Game.checkIfDone = function() {
     // write a function to check winning combinations every turn /
     // every time fillSquare is called. If there is a winner or a tie,
     // declare the result and initialize a new board.
-  }
 
+    // not currently working
+    console.log("checking if done... " + this.gameArray);
+
+    if (this.gameArray === [1,1,1,1,1,1,1,1,1]) {
+      console.log("game over!");
+      Game.init();
+      $('.cell').empty();
+    }
+  };
+
+  Game.init();
 
   $('.cell').click(function() {
+    Game.checkIfDone();
     var that = $(this);
     Game.fillSquare(that);
   });
