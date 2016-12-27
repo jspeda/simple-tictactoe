@@ -3,6 +3,7 @@ $(document).ready(function() {
   $('.modal').show();
 
   var playerTeam = "";
+  var computerTeam = "";
 
   $('.X, .O').click(function() {
     playerTeam = $(this).html();
@@ -45,11 +46,21 @@ $(document).ready(function() {
 
   Game.computerMove = function() {
     // write a function to have the computer choose its square.
-    // if (something)
+    if (playerTeam === "X") computerTeam = "O";
+    else computerTeam = "X";
 
-    // choose a random number between 0 and 9
-    var chosenCell = Math.floor(Math.random() * 10);
-    console.log("computer chooses index: " + chosenCell);
+
+    // choose a random number between 97 and 105
+    var chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
+    var chosenCell = String.fromCharCode(chosenCellASCII);
+    var placeInGameArray = this.gameLabels.indexOf(chosenCell);
+    // console.log("computer chooses index: " + chosenCell);
+    if (this.gameArray[placeInGameArray] !== 1) {
+      this.gameArray[placeInGameArray] = 1;
+      console.log("The computer moved at: " + chosenCell);
+      $("#" + chosenCell).html(computerTeam);
+
+    }
     // call Game.fillSquare() within this function when the optimal
     // move is found.
   };
