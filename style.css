@@ -3,8 +3,11 @@ body {
 }
 
 .modal {
-  display: none;
+  display: flex;
   position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
   margin: 0, auto;
   left: 25%;
@@ -12,7 +15,24 @@ body {
   width: 50%;
   height: 50%;
   overflow: auto;
-  background-color: white;
+  background: #737373;
+  border: 3px white solid;
+  color: white;
+}
+
+.X, .O {
+  color: #a8dfff;
+  text-decoration: underline;
+  transition: color 0.4s ease;
+}
+
+.X:hover, .O:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.choose {
+  font-size: 10em;
 }
 
 
