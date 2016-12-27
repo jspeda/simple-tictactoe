@@ -78,18 +78,18 @@ $(document).ready(function() {
       return cell === 1;
     };
     if (this.gameArray.every(isDone)) {
-      console.log("game over!");
+      $('.titlecard').html("game over!");
       var timer = 5;
       var resetTime = setInterval(function() {
         if (timer >= 0) {
-          console.log("New game in " + timer);
+          $('.titlecard').html("new game in " + timer);
           timer--;
         }
         else {
           Game.init();
           $('.cell').empty();
+          $('.titlecard').html("simple tic-tac-toe");
         }
-
       }, 1000);
     }
   };
