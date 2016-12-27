@@ -10,17 +10,18 @@ $(document).ready(function() {
     init: function() {
       this.gameArray = [0,0,0,0,0,0,0,0,0];
       this.gameLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-      this.winningCombos: {
-        ["a", "b", "c"],
-        ["d", "e", "f"],
-        ["g", "h", "i"],
-        ["a", "d", "g"],
-        ["b", "e", "h"],
-        ["c", "f", "i"],
-        ["a", "e", "i"],
-        ["c", "e", "g"]
-      }
-    }
+    },
+
+    // winningCombos: {
+    //   ["a", "b", "c"],
+    //   ["d", "e", "f"],
+    //   ["g", "h", "i"],
+    //   ["a", "d", "g"],
+    //   ["b", "e", "h"],
+    //   ["c", "f", "i"],
+    //   ["a", "e", "i"],
+    //   ["c", "e", "g"]
+    // }
 
     // list out all winning combinations
   };

@@ -4,11 +4,12 @@ body {
 
 .modal {
   display: none;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  left: 0;
-  right: 0;
-  width: 80%;
+  margin: 0, auto;
+  left: 25%;
+  margin-top: 10%;
+  width: 50%;
   height: 50%;
   overflow: auto;
   background-color: white;
