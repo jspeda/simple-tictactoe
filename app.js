@@ -2,7 +2,11 @@ $(document).ready(function() {
 
   $('.modal').show();
 
-  $('.modal').click(function() {
+  var playerTeam = "";
+
+  $('.X, .O').click(function() {
+    playerTeam = $(this).html();
+    console.log(playerTeam);
     $('.modal').hide();
   });
 
@@ -30,7 +34,7 @@ $(document).ready(function() {
 
   Game.fillSquare = function(item) {
     if(item.html() === "") {
-      item.html("X");
+      item.html(playerTeam);
       var currentSpot = this.gameLabels.indexOf(item.attr('id'));
       console.log("current spot: " + currentSpot +
       " cell ID: " + item.attr('id'));
