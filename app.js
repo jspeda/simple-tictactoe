@@ -54,15 +54,17 @@ $(document).ready(function() {
     var chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
     var chosenCell = String.fromCharCode(chosenCellASCII);
     var placeInGameArray = this.gameLabels.indexOf(chosenCell);
-    // console.log("computer chooses index: " + chosenCell);
-    if (this.gameArray[placeInGameArray] !== 1) {
+    // this while loop crashes the browser when game completes.
+    var checker = 1;
+    while (this.gameArray[placeInGameArray] === 1 && checker <= 9) {
+      checker++;
+      chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
+      chosenCell = String.fromCharCode(chosenCellASCII);
+      placeInGameArray = this.gameLabels.indexOf(chosenCell);
+    }
       this.gameArray[placeInGameArray] = 1;
       console.log("The computer moved at: " + chosenCell);
       $("#" + chosenCell).html(computerTeam);
-
-    }
-    // call Game.fillSquare() within this function when the optimal
-    // move is found.
   };
 
   Game.checkIfDone = function() {
@@ -77,8 +79,18 @@ $(document).ready(function() {
     };
     if (this.gameArray.every(isDone)) {
       console.log("game over!");
-      Game.init();
-      $('.cell').empty();
+      var timer = 5;
+      var resetTime = setInterval(function() {
+        if (timer >= 0) {
+          console.log("New game in " + timer);
+          timer--;
+        }
+        else {
+          Game.init();
+          $('.cell').empty();
+        }
+
+      }, 1000);
     }
   };
 
@@ -87,8 +99,8 @@ $(document).ready(function() {
   $('.cell').click(function() {
     var that = $(this);
     Game.fillSquare(that);
-    Game.checkIfDone();
     Game.computerMove();
+    Game.checkIfDone();
   });
 
 
