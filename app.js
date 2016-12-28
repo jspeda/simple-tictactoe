@@ -34,11 +34,11 @@ $(document).ready(function() {
 
   Game = Object.create(GameBoard);
 
-  Game.fillSquare = function(item) {
-    if(item.html() === "") {
+  Game.playerMove = function(item) {
+    if($(item).html() === "") {
       this.checker++;
-      item.html(playerTeam);
-      var currentSpot = this.gameLabels.indexOf(item.attr('id'));
+      $(item).html(playerTeam);
+      var currentSpot = this.gameLabels.indexOf($(item).attr('id'));
       // console.log("current spot: " + currentSpot +
       // " cell ID: " + item.attr('id'));
       this.gameArray[currentSpot] = 1;
@@ -68,6 +68,13 @@ $(document).ready(function() {
       console.log("The computer moved at: " + chosenCell);
       $("#" + chosenCell).html(computerTeam);
     }
+  };
+
+  Game.isValidMove = function(item) {
+    if ($(item).html() !== "") {
+      return false;
+    }
+    return true;
   };
 
   Game.checkIfDone = function() {
@@ -107,10 +114,13 @@ $(document).ready(function() {
 
   $('.cell').click(function() {
     var that = $(this);
-    Game.fillSquare(that);
-    Game.computerMove();
-    Game.checkIfDone();
+    if (Game.isValidMove(that) === false) {
+      console.log("pick another square");
+    }
+    else {
+      Game.playerMove(that);
+      Game.computerMove();
+      Game.checkIfDone();
+    }
   });
-
-
 });
