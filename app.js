@@ -15,6 +15,7 @@ $(document).ready(function() {
     init: function() {
       this.gameArray = [0,0,0,0,0,0,0,0,0];
       this.gameLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
+      this.checker = 1;
     },
 
     // winningCombos: {
@@ -35,36 +36,38 @@ $(document).ready(function() {
 
   Game.fillSquare = function(item) {
     if(item.html() === "") {
+      this.checker++;
       item.html(playerTeam);
       var currentSpot = this.gameLabels.indexOf(item.attr('id'));
-      console.log("current spot: " + currentSpot +
-      " cell ID: " + item.attr('id'));
+      // console.log("current spot: " + currentSpot +
+      // " cell ID: " + item.attr('id'));
       this.gameArray[currentSpot] = 1;
-      console.log(this.gameArray);
-    };
+      // console.log(this.gameArray);
+    }
+    else return;
   };
 
   Game.computerMove = function() {
-    // write a function to have the computer choose its square.
     if (playerTeam === "X") computerTeam = "O";
     else computerTeam = "X";
-
 
     // choose a random number between 97 and 105
     var chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
     var chosenCell = String.fromCharCode(chosenCellASCII);
     var placeInGameArray = this.gameLabels.indexOf(chosenCell);
-    // this while loop crashes the browser when game completes.
-    var checker = 1;
-    while (this.gameArray[placeInGameArray] === 1 && checker <= 9) {
-      checker++;
+    // var checker = 1;
+
+    while (this.gameArray[placeInGameArray] === 1 && this.checker < 9) {
+      this.checker++;
       chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
       chosenCell = String.fromCharCode(chosenCellASCII);
       placeInGameArray = this.gameLabels.indexOf(chosenCell);
     }
+    if ($("#" + chosenCell).html("")) {
       this.gameArray[placeInGameArray] = 1;
       console.log("The computer moved at: " + chosenCell);
       $("#" + chosenCell).html(computerTeam);
+    }
   };
 
   Game.checkIfDone = function() {
@@ -73,6 +76,7 @@ $(document).ready(function() {
     // declare the result and initialize a new board.
 
     console.log("checking if done... " + this.gameArray);
+    console.log("checker: " + this.checker);
     // function to check if each index of the game array is 1
     function isDone(cell) {
       return cell === 1;
@@ -87,14 +91,19 @@ $(document).ready(function() {
         }
         else {
           Game.init();
+          console.log("why");
           $('.cell').empty();
-          $('.titlecard').html("simple tic-tac-toe");
+          $('.titlecard').html("simple tic-tac-toe")
+          timer = 5;
+          clearInterval(resetTime);
         }
       }, 1000);
     }
   };
 
   Game.init();
+
+// moving is still very buggy - can click on the same cell and squares will fill
 
   $('.cell').click(function() {
     var that = $(this);
