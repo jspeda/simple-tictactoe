@@ -57,17 +57,31 @@ $(document).ready(function() {
     var placeInGameArray = this.gameLabels.indexOf(chosenCell);
     // var checker = 1;
 
-    while (this.gameArray[placeInGameArray] === 1 && this.checker < 9) {
-      this.checker++;
-      chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
-      chosenCell = String.fromCharCode(chosenCellASCII);
-      placeInGameArray = this.gameLabels.indexOf(chosenCell);
+    function isDone(cell) {
+      return cell === 1;
+    };
+    if (this.gameArray[placeInGameArray] === 1 && !this.gameArray.every(isDone)) {
+      return false;
     }
-    if ($("#" + chosenCell).html("")) {
+    else if (this.gameArray.every(isDone)) return;
+
+    else {
       this.gameArray[placeInGameArray] = 1;
       console.log("The computer moved at: " + chosenCell);
       $("#" + chosenCell).html(computerTeam);
     }
+
+    // while (this.gameArray[placeInGameArray] === 1 && this.checker < 9) {
+    //   this.checker++;
+    //   chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
+    //   chosenCell = String.fromCharCode(chosenCellASCII);
+    //   placeInGameArray = this.gameLabels.indexOf(chosenCell);
+    // }
+    // if ($("#" + chosenCell).html("")) {
+    //   this.gameArray[placeInGameArray] = 1;
+    //   console.log("The computer moved at: " + chosenCell);
+    //   $("#" + chosenCell).html(computerTeam);
+    // }
   };
 
   Game.isValidMove = function(item) {
@@ -98,7 +112,7 @@ $(document).ready(function() {
         }
         else {
           Game.init();
-          console.log("why");
+          console.log("GAME OVER");
           $('.cell').empty();
           $('.titlecard').html("simple tic-tac-toe")
           timer = 5;
@@ -110,8 +124,6 @@ $(document).ready(function() {
 
   Game.init();
 
-// moving is still very buggy - can click on the same cell and squares will fill
-
   $('.cell').click(function() {
     var that = $(this);
     if (Game.isValidMove(that) === false) {
@@ -119,7 +131,10 @@ $(document).ready(function() {
     }
     else {
       Game.playerMove(that);
-      Game.computerMove();
+      var computerInstance = Game.computerMove();
+      while (computerInstance === false) {
+       computerInstance = Game.computerMove();
+      }
       Game.checkIfDone();
     }
   });
