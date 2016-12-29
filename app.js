@@ -15,20 +15,7 @@ $(document).ready(function() {
     init: function() {
       this.gameArray = [0,0,0,0,0,0,0,0,0];
       this.gameLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-    },
-
-    // winningCombos: {
-    //   ["a", "b", "c"],
-    //   ["d", "e", "f"],
-    //   ["g", "h", "i"],
-    //   ["a", "d", "g"],
-    //   ["b", "e", "h"],
-    //   ["c", "f", "i"],
-    //   ["a", "e", "i"],
-    //   ["c", "e", "g"]
-    // }
-
-    // list out all winning combinations
+    }
   };
 
   Game = Object.create(GameBoard);
@@ -41,7 +28,6 @@ $(document).ready(function() {
       // console.log("current spot: " + currentSpot +
       // " cell ID: " + item.attr('id'));
       this.gameArray[currentSpot] = 1;
-      // console.log(this.gameArray);
     }
     else return;
   };
@@ -58,28 +44,17 @@ $(document).ready(function() {
     function isDone(cell) {
       return cell === 1;
     };
-    if (this.gameArray[placeInGameArray] === 1 && !this.gameArray.every(isDone)) {
+    if (this.gameArray[placeInGameArray] === 1 || this.gameArray[placeInGameArray] === 2
+       && !this.gameArray.every(isDone)) {
       return false;
     }
     else if (this.gameArray.every(isDone)) return;
 
     else {
-      this.gameArray[placeInGameArray] = 1;
+      this.gameArray[placeInGameArray] = 2;
       console.log("The computer moved at: " + chosenCell);
       $("#" + chosenCell).html(computerTeam);
     }
-
-    // while (this.gameArray[placeInGameArray] === 1 && this.checker < 9) {
-    //   this.checker++;
-    //   chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
-    //   chosenCell = String.fromCharCode(chosenCellASCII);
-    //   placeInGameArray = this.gameLabels.indexOf(chosenCell);
-    // }
-    // if ($("#" + chosenCell).html("")) {
-    //   this.gameArray[placeInGameArray] = 1;
-    //   console.log("The computer moved at: " + chosenCell);
-    //   $("#" + chosenCell).html(computerTeam);
-    // }
   };
 
   Game.isValidMove = function(item) {
@@ -95,18 +70,38 @@ $(document).ready(function() {
       return cell === 1;
     };
 
-    // if ()
-
-
-
-
+    var ga = this.gameArray;
+    if (
+      ga[0] === 1 && ga[1] === 1 && ga[2] === 1 ||
+      ga[3] === 1 && ga[4] === 1 && ga[5] === 1 ||
+      ga[6] === 1 && ga[7] === 1 && ga[8] === 1 ||
+      ga[0] === 1 && ga[3] === 1 && ga[6] === 1 ||
+      ga[1] === 1 && ga[4] === 1 && ga[7] === 1 ||
+      ga[2] === 1 && ga[5] === 1 && ga[8] === 1 ||
+      ga[0] === 1 && ga[4] === 1 && ga[8] === 1 ||
+      ga[2] === 1 && ga[4] === 1 && ga[6] === 1
+    ) {
+      Game.restart("player");
+    }
+    else if(
+      ga[0] === 2 && ga[1] === 2 && ga[2] === 2 ||
+      ga[3] === 2 && ga[4] === 2 && ga[5] === 2 ||
+      ga[6] === 2 && ga[7] === 2 && ga[8] === 2 ||
+      ga[0] === 2 && ga[3] === 2 && ga[6] === 2 ||
+      ga[1] === 2 && ga[4] === 2 && ga[7] === 2 ||
+      ga[2] === 2 && ga[5] === 2 && ga[8] === 2 ||
+      ga[0] === 2 && ga[4] === 2 && ga[8] === 2 ||
+      ga[2] === 2 && ga[4] === 2 && ga[6] === 2
+    ) {
+      Game.restart("computer");
+    }
     if (this.gameArray.every(isDone)) {
-      Game.restart();
+      Game.restart("nobody");
     }
   };
 
-  Game.restart = function() {
-    $('.titlecard').html("game over!");
+  Game.restart = function(winner) {
+    $('.titlecard').html("game over! " + winner + " wins!");
     console.log("GAME OVER")
     var timer = 5;
     var resetTime = setInterval(function() {
