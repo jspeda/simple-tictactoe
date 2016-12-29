@@ -15,7 +15,6 @@ $(document).ready(function() {
     init: function() {
       this.gameArray = [0,0,0,0,0,0,0,0,0];
       this.gameLabels = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-      this.checker = 1;
     },
 
     // winningCombos: {
@@ -55,7 +54,6 @@ $(document).ready(function() {
     var chosenCellASCII = Math.floor(Math.random()*(105-97+1)+97);
     var chosenCell = String.fromCharCode(chosenCellASCII);
     var placeInGameArray = this.gameLabels.indexOf(chosenCell);
-    // var checker = 1;
 
     function isDone(cell) {
       return cell === 1;
@@ -92,34 +90,38 @@ $(document).ready(function() {
   };
 
   Game.checkIfDone = function() {
-    // write a function to check winning combinations every turn /
-    // every time fillSquare is called. If there is a winner or a tie,
-    // declare the result and initialize a new board.
-
     console.log("checking if done... " + this.gameArray);
-    console.log("checker: " + this.checker);
-    // function to check if each index of the game array is 1
     function isDone(cell) {
       return cell === 1;
     };
+
+    // if ()
+
+
+
+
     if (this.gameArray.every(isDone)) {
-      $('.titlecard').html("game over!");
-      var timer = 5;
-      var resetTime = setInterval(function() {
-        if (timer >= 0) {
-          $('.titlecard').html("new game in " + timer);
-          timer--;
-        }
-        else {
-          Game.init();
-          console.log("GAME OVER");
-          $('.cell').empty();
-          $('.titlecard').html("simple tic-tac-toe")
-          timer = 5;
-          clearInterval(resetTime);
-        }
-      }, 1000);
+      Game.restart();
     }
+  };
+
+  Game.restart = function() {
+    $('.titlecard').html("game over!");
+    console.log("GAME OVER")
+    var timer = 5;
+    var resetTime = setInterval(function() {
+      if (timer >= 0) {
+        $('.titlecard').html("new game in " + timer);
+        timer--;
+      }
+      else {
+        Game.init();
+        $('.cell').empty();
+        $('.titlecard').html("simple tic-tac-toe")
+        timer = 5;
+        clearInterval(resetTime);
+      }
+    }, 1000);
   };
 
   Game.init();
