@@ -7,7 +7,6 @@ $(document).ready(function() {
 
   $('.X, .O').click(function() {
     playerTeam = $(this).html();
-    console.log(playerTeam);
     $('.modal').hide();
   });
 
@@ -25,8 +24,6 @@ $(document).ready(function() {
       this.checker++;
       $(item).html(playerTeam);
       var currentSpot = this.gameLabels.indexOf($(item).attr('id'));
-      // console.log("current spot: " + currentSpot +
-      // " cell ID: " + item.attr('id'));
       this.gameArray[currentSpot] = 1;
     }
     else return;
@@ -52,7 +49,6 @@ $(document).ready(function() {
 
     else {
       this.gameArray[placeInGameArray] = 2;
-      console.log("The computer moved at: " + chosenCell);
       $("#" + chosenCell).html(computerTeam);
     }
   };
@@ -65,7 +61,6 @@ $(document).ready(function() {
   };
 
   Game.checkIfDone = function() {
-    console.log("checking if done... " + this.gameArray);
     function isDone(cell) {
       return cell === 1;
     };
@@ -102,7 +97,6 @@ $(document).ready(function() {
 
   Game.restart = function(winner) {
     $('.titlecard').html("game over! " + winner + " wins!");
-    console.log("GAME OVER")
     var timer = 5;
     var resetTime = setInterval(function() {
       if (timer >= 0) {
@@ -112,7 +106,7 @@ $(document).ready(function() {
       else {
         Game.init();
         $('.cell').empty();
-        $('.titlecard').html("simple tic-tac-toe")
+        $('.titlecard').html("simple tic-tac-toe");
         timer = 5;
         clearInterval(resetTime);
       }
@@ -124,7 +118,6 @@ $(document).ready(function() {
   $('.cell').click(function() {
     var that = $(this);
     if (Game.isValidMove(that) === false) {
-      console.log("pick another square");
     }
     else {
       Game.playerMove(that);
