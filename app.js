@@ -78,7 +78,7 @@ $(document).ready(function() {
     ) {
       Game.restart("player");
     }
-    else if(
+    else if (
       ga[0] === 2 && ga[1] === 2 && ga[2] === 2 ||
       ga[3] === 2 && ga[4] === 2 && ga[5] === 2 ||
       ga[6] === 2 && ga[7] === 2 && ga[8] === 2 ||
