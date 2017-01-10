@@ -24,6 +24,7 @@ $(document).ready(function() {
       this.checker++;
       $(item).html(playerTeam);
       var currentSpot = this.gameLabels.indexOf($(item).attr('id'));
+      console.log(`Player moving to ${currentSpot}`);
       this.gameArray[currentSpot] = 1;
     }
     else return;
@@ -39,18 +40,17 @@ $(document).ready(function() {
     var placeInGameArray = this.gameLabels.indexOf(chosenCell);
 
     function isDone(cell) {
-      return cell === 1;
+      return cell === 1 || cell === 2;
     };
-    if (this.gameArray[placeInGameArray] === 1 || this.gameArray[placeInGameArray] === 2
-       && !this.gameArray.every(isDone)) {
-      return false;
-    }
-    else if (this.gameArray.every(isDone)) return;
 
-    else {
+    if (this.gameArray[placeInGameArray] === 0) {
       this.gameArray[placeInGameArray] = 2;
+      console.log(`computer moving to ${placeInGameArray}`);
       $("#" + chosenCell).html(computerTeam);
     }
+    else if (this.gameArray.indexOf(0) === -1) return;
+
+    else return false;
   };
 
   Game.isValidMove = function(item) {
@@ -61,6 +61,7 @@ $(document).ready(function() {
   };
 
   Game.checkIfDone = function() {
+
     function isDone(cell) {
       return cell === 1;
     };
@@ -90,12 +91,13 @@ $(document).ready(function() {
     ) {
       Game.restart("computer");
     }
-    if (this.gameArray.every(isDone)) {
+    else if (this.gameArray.every(isDone)) {
       Game.restart("nobody");
     }
   };
 
   Game.restart = function(winner) {
+    Game.init();
     $('.titlecard').html("game over! " + winner + " wins!");
     var timer = 5;
     var resetTime = setInterval(function() {
@@ -104,7 +106,6 @@ $(document).ready(function() {
         timer--;
       }
       else {
-        Game.init();
         $('.cell').empty();
         $('.titlecard').html("simple tic-tac-toe");
         timer = 5;
@@ -116,13 +117,19 @@ $(document).ready(function() {
   Game.init();
 
   $('.cell').click(function() {
+    function isDone(cell) {
+      return cell === 1;
+    };
     var that = $(this);
     if (Game.isValidMove(that) === false) {
+
     }
     else {
       Game.playerMove(that);
+      console.log(`${Game.gameArray}`);
       var computerInstance = Game.computerMove();
       while (computerInstance === false) {
+        console.log(computerInstance);
        computerInstance = Game.computerMove();
       }
       Game.checkIfDone();
